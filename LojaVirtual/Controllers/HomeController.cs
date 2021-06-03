@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace LojaVirtual.Controllers
 {
@@ -22,14 +24,41 @@ namespace LojaVirtual.Controllers
 
         public IActionResult ContatoAcao()
         {
-            Contato contato = new Contato();
-            contato.Nome  = HttpContext.Request.Form["nome"];
-            contato.Email = HttpContext.Request.Form["email"];
-            contato.Texto = HttpContext.Request.Form["texto"];
+            try
+            {
+                Contato contato = new Contato();
+                contato.Nome = HttpContext.Request.Form["nome"];
+                contato.Email = HttpContext.Request.Form["email"];
+                contato.Texto = HttpContext.Request.Form["texto"];
 
-            ContatoEmail.EnviarContatoPorEmail(contato);
+                var listaMensagens = new List<ValidationResult>();
+                var contexto = new ValidationContext(contato);
+                bool isValid = Validator.TryValidateObject(contato, contexto, listaMensagens, true);
+
+                if (isValid)
+                {
+                    ContatoEmail.EnviarContatoPorEmail(contato);
+                    ViewData["MSG_S"] = "Mensagem de contato enviado com sucesso!";
+
+                } else
+                {
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var texto in listaMensagens)
+                    {
+                        sb.AppendLine(texto.ErrorMessage + "<br />");
+                    }
+                    ViewData["MSG_E"] = sb.ToString();
+                    ViewData["CONTATO"] = contato;
+                }
+
+            }
+            catch (Exception e)
+            {
+                ViewData["MSG_E"] = "Ocorreu um problema ao enviar o e-mail. Tente novamente mais tarde!";
+            }
+           
+            return View("Contato");
             
-            return new ContentResult() { Content = String.Format("Dados recebidos com sucesso! Nome: {0}, Email: {1}, Texto: {2}", contato.Nome, contato.Email, contato.Texto), ContentType = "text/html" };
         }
 
         public IActionResult Login()
