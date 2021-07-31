@@ -7,14 +7,41 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using LojaVirtual.Database;
 
 namespace LojaVirtual.Controllers
 {
     public class HomeController : Controller
     {
+        private LojaVirtualContext _banco;
+        public HomeController(LojaVirtualContext banco)
+        {
+            _banco = banco;
+        }
+        
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index([FromForm]NewsletterEmail newsletter)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                _banco.NewsletterEmails.Add(newsletter);
+                _banco.SaveChanges();
+
+                TempData["MSG_SUCESSO"] = "E-mail cadastrado. Você receberá nossas promoções e novidades.";
+
+                return RedirectToAction(nameof(Index));
+            } else
+            {
+                return View();
+            }
+            
         }
 
         public IActionResult Contato()
@@ -66,8 +93,23 @@ namespace LojaVirtual.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult CadastroCliente()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CadastroCliente([FromForm] Cliente cliente)
+        {
+            if (ModelState.IsValid)
+            {
+                _banco.Add(cliente);
+                _banco.SaveChanges();
+
+                TempData["MSG_SUCESSO"] = "Cadastro realizado com sucesso!";
+                return RedirectToAction(nameof(CadastroCliente));
+            }
             return View();
         }
 
