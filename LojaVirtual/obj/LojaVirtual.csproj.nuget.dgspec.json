@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projetos\\Estudo\\LojaVirtual\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj": {}
+    "E:\\CursoASP\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj": {}
   },
   "projects": {
-    "E:\\Projetos\\Estudo\\LojaVirtual\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj": {
+    "E:\\CursoASP\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projetos\\Estudo\\LojaVirtual\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
+        "projectUniqueName": "E:\\CursoASP\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
         "projectName": "LojaVirtual",
-        "projectPath": "E:\\Projetos\\Estudo\\LojaVirtual\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
-        "packagesPath": "C:\\Users\\Micro05\\.nuget\\packages\\",
-        "outputPath": "E:\\Projetos\\Estudo\\LojaVirtual\\LojaVirtual\\LojaVirtual\\obj\\",
+        "projectPath": "E:\\CursoASP\\LojaVirtual\\LojaVirtual\\LojaVirtual.csproj",
+        "packagesPath": "C:\\Users\\leils\\.nuget\\packages\\",
+        "outputPath": "E:\\CursoASP\\LojaVirtual\\LojaVirtual\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Micro05\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\leils\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -81,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.205\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

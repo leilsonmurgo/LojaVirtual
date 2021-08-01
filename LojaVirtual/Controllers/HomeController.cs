@@ -8,15 +8,19 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using LojaVirtual.Database;
+using LojaVirtual.Repositories;
+using LojaVirtual.Repositories.Interfaces;
 
 namespace LojaVirtual.Controllers
 {
     public class HomeController : Controller
     {
-        private LojaVirtualContext _banco;
-        public HomeController(LojaVirtualContext banco)
+        private IClienteRepository _clienteRepository;
+        private INewsletterRepository _newsRepository;
+        public HomeController(IClienteRepository clienteRepository, INewsletterRepository newsRepository)
         {
-            _banco = banco;
+            _clienteRepository = clienteRepository;
+            _newsRepository = newsRepository;
         }
         
         [HttpGet]
@@ -31,8 +35,8 @@ namespace LojaVirtual.Controllers
             
             if (ModelState.IsValid)
             {
-                _banco.NewsletterEmails.Add(newsletter);
-                _banco.SaveChanges();
+
+                _newsRepository.Cadastrar(newsletter);
 
                 TempData["MSG_SUCESSO"] = "E-mail cadastrado. Você receberá nossas promoções e novidades.";
 
@@ -104,8 +108,7 @@ namespace LojaVirtual.Controllers
         {
             if (ModelState.IsValid)
             {
-                _banco.Add(cliente);
-                _banco.SaveChanges();
+                _clienteRepository.Cadastrar(cliente);
 
                 TempData["MSG_SUCESSO"] = "Cadastro realizado com sucesso!";
                 return RedirectToAction(nameof(CadastroCliente));
