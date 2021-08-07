@@ -10,6 +10,7 @@ using System.Text;
 using LojaVirtual.Database;
 using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace LojaVirtual.Controllers
 {
@@ -83,7 +84,7 @@ namespace LojaVirtual.Controllers
                 }
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ViewData["MSG_E"] = "Ocorreu um problema ao enviar o e-mail. Tente novamente mais tarde!";
             }
@@ -92,10 +93,46 @@ namespace LojaVirtual.Controllers
             
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Login([FromForm]Cliente cliente)
+        {
+            if(cliente.Email == "teste@teste.com" && cliente.Senha == "1234")
+            {
+                HttpContext.Session.Set("ID", new byte[] { 52 });
+                HttpContext.Session.SetString("email", "teste@teste.com");
+                HttpContext.Session.SetInt32("idade", 32);
+                
+                return new ContentResult() { Content = "Logado" };
+            }
+            else
+            {
+                return new ContentResult() { Content = "Não Logado" };
+            }
+                        
+        }
+
+        [HttpGet]
+        public IActionResult Painel()
+        {
+
+            byte[] UsuarioId;
+
+            if (HttpContext.Session.TryGetValue("ID", out UsuarioId))
+            {
+                return new ContentResult() { Content = "Acesso confirmado do usuario " + UsuarioId[0] };
+            } else
+            {
+                return new ContentResult() { Content = "Acesso Negado!" };
+            }            
+            
+        }
+
 
         [HttpGet]
         public IActionResult CadastroCliente()
