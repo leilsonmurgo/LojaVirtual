@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using LojaVirtual.Repositories;
 using LojaVirtual.Repositories.Interfaces;
 using LojaVirtual.Libraries.Sessao;
+using LojaVirtual.Libraries.Login;
 
 namespace LojaVirtual
 {
@@ -40,7 +41,8 @@ namespace LojaVirtual
             });
 
             services.AddScoped<Sessao>();
-            
+            services.AddScoped<LoginCliente>();
+
             services.AddControllersWithViews();
 
             //string connection = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=LojaVirtual;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
