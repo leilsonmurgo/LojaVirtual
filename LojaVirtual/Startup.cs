@@ -34,6 +34,7 @@ namespace LojaVirtual
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<INewsletterRepository, NewsletterRepository>();
+            services.AddScoped<IColaboradorRepository, ColaboradorRepository>();
 
             services.AddMemoryCache();
             services.AddSession(options => { 
@@ -42,6 +43,7 @@ namespace LojaVirtual
 
             services.AddScoped<Sessao>();
             services.AddScoped<LoginCliente>();
+            services.AddScoped<LoginColaborador>();
 
             services.AddControllersWithViews();
 
@@ -76,6 +78,11 @@ namespace LojaVirtual
              */
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                  );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
